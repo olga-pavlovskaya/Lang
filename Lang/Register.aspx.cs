@@ -6,6 +6,8 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using Data;
+
 namespace Lang.Account
 {
     public partial class Register : System.Web.UI.Page
@@ -17,6 +19,11 @@ namespace Lang.Account
 
         protected void RegisterUser_CreatedUser(object sender, EventArgs e)
         {
+            Data.User user = new User();
+            user.name = UserName.Text;
+            user.password = Password.Text;
+
+            UserManager.AddUser(user);
         }
 
     }
