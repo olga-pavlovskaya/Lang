@@ -1,0 +1,25 @@
+﻿.lang-table { width:100%; white-space:nowrap; cursor:default; }
+.lang-table td.center-align { text-align:center;  }
+
+.lang-table td {height:20px;line-height:20px;}
+.lang-table tr:hover { background-color:#ccc;}
+.lang-table tr:hover .icon {display:block;}
+.lang-table td .icon { float:right; margin-right:20px; }
+.icon { height:20px; width:20px; cursor:pointer; display:none; }
+.pencil { background-image:url('images/site/pencil_icon.jpg'); }
+.pencil:hover { background-image:url('images/site/pencil_icon_hover.jpg'); }
+.delete { background-image:url('images/site/delete_icon.gif'); }
+.delete:hover { background-image:url('images/site/delete_icon_hover.gif'); }
+.ok { background-image:url('images/site/ok_icon.png'); }
+.ok:hover { background-image:url('images/site/ok_icon_hover.png'); }
+
+.lang-add {line-height:30px;}
+.add-ico { width:30px; height:30px; float:left; margin:0px 5px; cursor:pointer; background-image:url('images/site/add_icon.png'); }
+.add-ico:hover { background-image:url('images/site/add_icon_hover.png'); }
+.add-ico input {height:30px; width:30px; opacity:0;position:relative; top:-5px;cursor:pointer;}
+.add-info {width:100%; height:30px; border:1px solid #ccc; margin:10px; padding:5px;}
+
+.lang-table thead {font-weight:bold;}
+
+#machine-table td {background: rgb(235,244,250); width:50px; }
+#machine-table td.header {background: rgb(194,224,239); }

@@ -1,0 +1,56 @@
+﻿body 
+{
+    font-family: Helvetica Neue, Arial;
+}
+
+
+.ta
+{
+    width:97%;
+    height:140px;
+    float:center;
+}
+
+.result-table
+{
+    width:45%;
+    float:left;
+    border:1px solid #ccc;
+    margin-left:20px;
+}
+
+.result-table-header
+{
+    color:#e17009;
+    color:#c00;
+    border:0px solid #ccc;
+    text-align:center;
+    font-weight:bold;
+}
+
+.result-table-cell
+{
+    text-align:center;
+}
+.tabs { border:0px; }
+.ui-tabs-nav { width:200px; float:left; height:370px; }
+.ui-tabs-nav li { width:190px; }
+.ui-tabs-panel { float: left; width:70%; height:370px;}
+
+.header .hideSkiplink { padding: 10px 0px; }
+a[href="#NavigationMenu_SkipLink"] { display:none; }
+
+.ui-widget-header { background: none; border: none;}
+
+div.menu ul li  { margin-left: -4px; }
+
+.ui-tabs .ui-tabs-nav li { height: 80px; padding:0px 10px; }
+.ui-tabs .ui-tabs-nav li.ui-state-disabled { opacity: 1; }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected { background: rgb(118, 174, 205); }
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {color: #fff; font-size:16px;}
+
+.ui-combobox input {width:140px; float:left; color:#000; }
+.ui-combobox input.ui-state-default {color:#000; font-weight:normal;}
+.ui-tabs .ui-tabs-nav li a {padding:3px 0px 4px 0px; margin-top:2px;}
+
+.combo-div { width:180px; float:left; margin:10px; }

@@ -1,0 +1,73 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs"  Inherits="Lang.SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery-1.7.1.min.js") %>' language="javascript"></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery-ui-1.8.17.custom.js") %>'  language="javascript"></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery.ui.accordion.js") %>' language="javascript"></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery.ui.tabs.js") %>' language="javascript"></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/combobox.js") %>' language="javascript"></script>
+
+    <form id="Form1" runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    
+                </h1>
+            </div>
+            <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Login.aspx" ID="HeadLoginStatus" runat="server">Войти</a> ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Добро пожаловать, <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
+                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Выйти" LogoutPageUrl="~/"/> ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
+            
+            <div class="clear hideSkiplink ui-widget">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu"
+                    EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                    <LevelMenuItemStyles>
+                        <asp:MenuItemStyle CssClass="main-menu"/>
+                    </LevelMenuItemStyles>
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Режим разработки" />
+                        <asp:MenuItem NavigateUrl="~/Study.aspx" Text="Режим обучения" />
+                        <asp:MenuItem NavigateUrl="~/Users.aspx" Text="Управление пользователями" />
+                        <asp:MenuItem NavigateUrl="~/FileManager.aspx" Text="Управление файлами" />
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+        Olga Pavlovskaya, BSU, 2012
+    </div>
+    </form>
+        <script language="javascript" type="text/javascript">
+            $(function () {
+                var currLink = '<%= Page.Request.Url.LocalPath %>';
+                if (currLink[0] == '/') currLink = currLink.substring(1);
+                $('a[href$="' + currLink + '"]').addClass('active');
+                //$(".menu").tabs();
+            });
+            $('input[type="button"]').button();
+    </script>
+</body>
+</html>
