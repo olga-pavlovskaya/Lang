@@ -34,7 +34,10 @@ MasterPageFile="~/Site.Master"%>
                     <span class="icon preloader" ></span>
                 </td>
                 <td data="UpdateUserRole">
-                    <input type="checkbox" />
+                   <% if (user.role > 0)
+                   { %>  <input type="checkbox" checked="checked" /> <% }
+                   else
+                   {  %> <input type="checkbox" /> <% } %>
                     <span class="icon preloader" ></span>
                 </td>
                 <td data="DeleteUser">

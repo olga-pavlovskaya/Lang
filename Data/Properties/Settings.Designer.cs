@@ -33,5 +33,16 @@ namespace Data.Properties {
                 return ((string)(this["LangDatabaseConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=D:\\PRJ\\Lang\\Data\\LangDatabase.mdf;Integ" +
+            "rated Security=True;User Instance=True")]
+        public string LangDatabaseConnectionString1 {
+            get {
+                return ((string)(this["LangDatabaseConnectionString1"]));
+            }
+        }
     }
 }

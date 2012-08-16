@@ -19,6 +19,12 @@ namespace Data
             return db.Users.FirstOrDefault(u => u.id == userid);
         }
 
+        public static User GetUser()
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            return db.Users.FirstOrDefault();
+        }
+
         public static void DeleteUser(int userid)
         {
             DataClassesDataContext db = new DataClassesDataContext();
@@ -64,7 +70,7 @@ namespace Data
 
     public class Role
     {
-        public const int USER = 1;
-        public const int ADMIN = 2;
+        public const int USER = 0;
+        public const int ADMIN = 1;
     }
 }
