@@ -9,10 +9,8 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery-1.7.1.min.js") %>' language="javascript"></script>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery-ui-1.8.17.custom.js") %>'  language="javascript"></script>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery.ui.accordion.js") %>' language="javascript"></script>
-    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery.ui.tabs.js") %>' language="javascript"></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery-1.7.2.js") %>' language="javascript"></script>
+    <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/jquery-ui-1.8.23.custom.js") %>'  language="javascript"></script>
     <script type="text/javascript" src='<%= Page.ResolveUrl("~/Scripts/combobox.js") %>' language="javascript"></script>
 
     <form id="Form1" runat="server">

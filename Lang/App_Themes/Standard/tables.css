@@ -2,16 +2,33 @@
 .lang-table td.center-align { text-align:center;  }
 
 .lang-table td {height:20px;line-height:20px;}
-.lang-table tr:hover { background-color:#ccc;}
-.lang-table tr:hover .icon {display:block;}
+.lang-table tbody tr:hover { background-color:#ccc;}
 .lang-table td .icon { float:right; margin-right:20px; }
+.lang-table td .icon.delete { float:none; margin:auto; }
+
+.lang-table tr:hover .icon.pencil, .lang-table tr:hover .icon.delete {display:block;}
+.lang-table td.edit .icon.ok, .lang-table td.edit .icon.cancel {display:block;}
+.lang-table tr:hover td.edit .icon.pencil, .lang-table tr:hover td.saving .icon.pencil { display:none; }
+.lang-table td.saving .icon.preloader {display:block;}
+
+.lang-table .value, .lang-table input { float:left; height:20px; }
+.lang-table td input.notcheck { display:none; }
+.lang-table td.edit input.notcheck { display:block; }
+.lang-table td .value { display:block; }
+.lang-table td.edit .value { display:none; }
+
 .icon { height:20px; width:20px; cursor:pointer; display:none; }
 .pencil { background-image:url('images/site/pencil_icon.jpg'); }
 .pencil:hover { background-image:url('images/site/pencil_icon_hover.jpg'); }
 .delete { background-image:url('images/site/delete_icon.gif'); }
 .delete:hover { background-image:url('images/site/delete_icon_hover.gif'); }
+.cancel { background-image:url('images/site/delete_icon.gif'); }
+.cancel:hover { background-image:url('images/site/delete_icon_hover.gif'); }
 .ok { background-image:url('images/site/ok_icon.png'); }
 .ok:hover { background-image:url('images/site/ok_icon_hover.png'); }
+.preloader { background-image:url('images/site/preloader.gif'); display:none; }
+
+.saving .preloader { display:block; }
 
 .lang-add {line-height:30px;}
 .add-ico { width:30px; height:30px; float:left; margin:0px 5px; cursor:pointer; background-image:url('images/site/add_icon.png'); }

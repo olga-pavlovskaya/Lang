@@ -13,6 +13,12 @@ namespace Data
             return db.Users.ToList();
         }
 
+        public static User GetUser(int userid)
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            return db.Users.FirstOrDefault(u => u.id == userid);
+        }
+
         public static void DeleteUser(int userid)
         {
             DataClassesDataContext db = new DataClassesDataContext();
@@ -54,5 +60,11 @@ namespace Data
                 });
             db.SubmitChanges();
         }
+    }
+
+    public class Role
+    {
+        public const int USER = 1;
+        public const int ADMIN = 2;
     }
 }
