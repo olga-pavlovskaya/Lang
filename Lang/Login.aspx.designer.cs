@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Lang.Account {
+namespace Lang {
     
     
     public partial class Login {

@@ -39,6 +39,27 @@ namespace Data
             db.Files.ToList().ForEach(u => { if (u.id > i) i = u.id; });
             return i + 1;
         }
+
+        public static File GetFile(int fileid)
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            return db.Files.FirstOrDefault(u => u.id == fileid);
+        }
+
+        public static void UpdateFile(File file)
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+
+            db.Files.Where(u => u.id == file.id)
+                .ToList()
+                .ForEach(f =>
+                {
+                    f.name = file.name;
+                    f.type = file.type;
+                    f.is_public = file.is_public;
+                });
+            db.SubmitChanges();
+        }
     }
 
     public class FileType

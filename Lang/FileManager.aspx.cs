@@ -45,5 +45,29 @@ namespace Lang
         {
             Data.FileManager.DeleteFile(fileid);
         }
+
+        [WebMethod]
+        public static void ChangeFileType(int fileid, int value)
+        {
+            var f = Data.FileManager.GetFile(fileid);
+            f.type = value;
+            Data.FileManager.UpdateFile(f);
+        }
+
+        [WebMethod]
+        public static void ChangeFileName(int fileid, string value)
+        {
+            var f = Data.FileManager.GetFile(fileid);
+            f.name = value;
+            Data.FileManager.UpdateFile(f);
+        }
+
+        [WebMethod]
+        public static void ChangeFileVisibility(int fileid, bool value)
+        {
+            var f = Data.FileManager.GetFile(fileid);
+            f.is_public = value ? 1 : 0;
+            Data.FileManager.UpdateFile(f);
+        }
     }
 }

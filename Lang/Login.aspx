@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeBehind="Login.aspx.cs" Inherits="Lang.Account.Login" Debug="true" %>
+    CodeBehind="Login.aspx.cs" Inherits="Lang.Login" Debug="true" %>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
@@ -27,7 +27,7 @@
                     </p>
                 </fieldset>
                 <p class="submitButton">
-                    <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" style="display:none;"/>
+                    <asp:Button ID="LoginButton" runat="server" OnClick="btnLogin_Click" Text="Log In" style="display:none;"/>
                     <div id="btnLexic" class="button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="$('#MainContent_LoginUser_LoginButton').click(); "><span class="ui-button-text">Войти</span></div>
                 </p>
             </div>

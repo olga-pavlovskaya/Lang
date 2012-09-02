@@ -19,6 +19,12 @@ namespace Data
             return db.Users.FirstOrDefault(u => u.id == userid);
         }
 
+        public static User GetUser(string username, string pass)
+        {
+            DataClassesDataContext db = new DataClassesDataContext();
+            return db.Users.FirstOrDefault(u => u.name == username && u.password == pass);
+        }
+
         public static User GetUser()
         {
             DataClassesDataContext db = new DataClassesDataContext();

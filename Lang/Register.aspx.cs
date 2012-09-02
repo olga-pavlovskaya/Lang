@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 using Data;
 
-namespace Lang.Account
+namespace Lang
 {
     public partial class Register : System.Web.UI.Page
     {

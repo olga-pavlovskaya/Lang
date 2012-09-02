@@ -28,7 +28,7 @@
         <% foreach (var file in Data.FileManager.GetAllFiles())
         { %>
         <tr>
-            <td data="UpdateFileName">
+            <td data="ChangeFileName">
                 <span class="value"><%= file.name%></span>
                 <input type="text" class="notcheck" value="<%= file.name %>" style="width:200px"/>
                 <span class="icon pencil" ></span>
@@ -39,7 +39,7 @@
             <td>
                 <span><%= file.filename%></span>
             </td>
-            <td data="UpdateFileType">
+            <td data="ChangeFileType">
                 <select>
                     <option value="0">Лексика</option>
                     <option value="1">Грамматика</option>
@@ -54,7 +54,7 @@
             <td>
                 <%= Data.UserManager.GetUser(file.owner).name %>
             </td>
-            <td class="center-align" data="UpdateFileRights">
+            <td class="center-align" data="ChangeFileVisibility">
                 <% if (file.is_public > 0)
                    { %>  <input type="checkbox" checked="checked" /> <% }
                    else
@@ -89,35 +89,6 @@
             var td = self.parent('td');
             td.removeClass('edit');
         });
-        $('.ok, input[type="checkbox"]').click(function() {
-            var self = $(this);
-            var td = self.parent('td');
-            td.removeClass('edit');
-            var input = td.find('input'),
-                value = input.val();
-            td.find('.value').html(value);
-            
-            var method = td.attr('data');
-            if (method) {
-                td.addClass('saving');
-                var userid = td.parent('tr').find('.fileid').val();
-                if (self.attr('type') == 'checkbox')
-                    value = self.attr('checked') ? true : false;
-                $.ajax({
-                    type: "POST",
-                    url: "FileManager.aspx/" + method,
-                    data: '{ fileid:"' + userid + '", value:"' + value + '"}',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (result) {
-                        td.removeClass('saving');
-                    },
-                    error: function() {
-                        td.removeClass('saving');
-                    }
-                });
-            }
-        });
 
         $('.delete').click(function() {
             var self = $(this);
@@ -143,6 +114,41 @@
                 });
             }
         });
+
+        var onInputChange = function(e) {
+            var td = $(this).parent('td');
+            td.removeClass('edit');
+            var fileid = td.parent('tr').find('.fileid').val();
+            var select = $('select',td),
+                value = td.find('input').val();
+            if (select.length > 0)
+                value = select.val();
+            else if (td.find('input').attr('type') == 'checkbox')
+                value = td.find('input').attr('checked') ? true : false;
+            else
+                td.find('.value').html(value);
+                
+            var method = td.attr('data');
+            if (method) {
+                td.addClass('saving');
+                $.ajax({
+                    type: "POST",
+                    url: "FileManager.aspx/" + method,
+                    data: '{ fileid:"' + fileid + '", value:"' + value + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        td.removeClass('saving');
+                    },
+                    error: function() {
+                        td.removeClass('saving');
+                    }
+                });
+            }
+        }
+        $('select').change(onInputChange);
+        $('.ok, input[type="checkbox"]').click(onInputChange);
+
 
     </script>
 </asp:Content>
