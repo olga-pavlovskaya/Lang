@@ -7,7 +7,6 @@ namespace Logic
 {
     public class State
     {
-        public static int NEXTID;
         Machine machine { get; set; }
         public List<RegExpTreeItem> CurPositions { get; set; }
         public HashSet<Int32> Values { get; set; }
@@ -16,9 +15,9 @@ namespace Logic
         public string Id { get; set; }
         public State(Machine mach)
         {
-            Id = "q" + NEXTID.ToString();
-            NEXTID++;
             machine = mach;
+            Id = "q" + machine.STATE.ToString();
+            machine.STATE++;
             Moves = new Dictionary<Char, State>();
             Values = new HashSet<Int32>();
             CurPositions = new List<RegExpTreeItem>();

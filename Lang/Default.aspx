@@ -52,6 +52,7 @@
                     <div id="btnGrammar" class="button">Сохранить</div>
                     <span style="color:#8c2a1c;font-size:12px;display:none;margin-left:10px;" class="err">Ошибка при разборе</span>
 		        </div>
+                <div id="grammar-table" style="width:100%; height:170px; overflow:auto;"></div>
             </div>
 	    </div>
         
@@ -61,15 +62,20 @@
                     <%= t3 %>
                 </textarea>
                 <div style="width:95%; float:left;padding-top:10px;margin-right:50%;">
-                    Задайте параметры через пробел: <asp:TextBox runat="server" ID="tb3"></asp:TextBox><br /><div id="btnFunction" class="button">Вычислить</div>
+                    <div id="btnFunction" class="button">Вычислить</div>
                     <span style="color:#8c2a1c;font-size:12px;display:none;margin-left:10px;" class="err">Ошибка при разборе</span>
 		        </div>
+                <div id="treeimage"></div>
             </div>
 	    </div>
 	    <div class="function" id="result">
             <div style="border: 1px solid black; width:200px; height: 100px; " >
-            1<br />2<br />3<br />4<br />5
+            
             </div>
+            <div style="width:95%; float:left;padding-top:10px;margin-right:50%;">
+                Задайте параметры через пробел: <asp:TextBox runat="server" ID="tb3"></asp:TextBox><br /><div id="btnCount" class="button">Вычислить</div>
+                <span style="color:#8c2a1c;font-size:12px;display:none;margin-left:10px;" class="err">Ошибка при разборе</span>
+		    </div>
             <div class="result-ok">
                 <textarea id="Textarea1" class="ta" onkeypress="$('#btnFunction').button({disabled:false});" >
                     <%= t3 %>
@@ -131,8 +137,8 @@
                         table.append('<tr><td class="result-table-cell">' + obj.type + '</td><td class="result-table-cell">' + obj.value + '</td></tr>');
                     }
                     $('#parsedLexic').empty().append(table);
-                    $('#taIl')[0].value = result.d.il;
-                
+                    //$('#taIl')[0].value = result.d.il;
+                    $('#treeimage').html('<img src="FileHandler.ashx"></img>');
                 }
                 else {
                     $('#btnFunction').next().show();
@@ -145,6 +151,16 @@
                     $('.function .grammar-ok').show();
                     $('.function .error').hide();
                     $('#btnGrammar').button({ disabled: true });
+                    $('#grammar-table').empty().append("<table></table>");
+                    for (var i = 0; i < result.d.length; i++) {
+                        var row = result.d[i];
+                        var r = $('<tr></tr>');
+                        for (var j = 0; j < row.length; j++)
+                            r.append(i > 0 ? '<td>' + row[j] + '</td>' : row[j]);
+                        $('#grammar-table table').append(r);
+                    }
+                    $('#grammar-table tr:first td, #grammar-table tr:first+tr td').addClass('header');
+                    $('td:first', $('#grammar-table tr')).addClass('header');
                 }
                 else {
                     $.studyObj.isGrammar = false;
@@ -158,23 +174,6 @@
                 $('#machine-table').html(result.d);
                 $('#machine-table tr:first td').addClass('header');
                 $('td:first', $('#machine-table tr')).addClass('header');
-                /*
-                var table=$('<table class="result-table"></table>');
-                table.append('<tr><td class="result-table-header">Класс</td><td class="result-table-header">Значение</td>');
-                $('#parsedLexic').empty().append(table);
-                if (result.d != null) {
-                    $.studyObj.isLexic = true;
-                    $('.grammar .grammar-ok, .function .grammar-ok').show();
-                    $('.grammar .error, .function .error').hide();
-
-                    $('#btnLexic').button({ disabled: true });
-                }
-                else {
-                    $.studyObj.isLexic = false;
-                    $('.grammar .grammar-ok, .function .grammar-ok').hide();
-                    $('.grammar .error, .function .error').show();
-                    $('#btnLexic').next().show();
-                }*/
             };
         });
     </script>

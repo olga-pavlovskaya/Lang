@@ -7,7 +7,7 @@ namespace Logic
 {
     public class ComplexMachine
     {
-        private TokenManager tm;
+        public TokenManager tm;
         private HashSet<String> allowed = new HashSet<string>(){"literal","delimiter","keyword",
             "punctuator","decimal","boolop","mathop","boolop2","plusop","multop","assignop"};
         public Dictionary<String, Machine> Machines { get; set; }
@@ -21,6 +21,8 @@ namespace Logic
         }
         public void Reset(String text)
         {
+            if (tm == null) tm = new TokenManager();
+            tm.Reset();
             iterator = 0;
             Text = text;
         }
@@ -106,43 +108,24 @@ namespace Logic
         {
             return iterator < Text.Length;
         }
-        public ComplexMachine()
+        public ComplexMachine(RegExpTree tree)
         {
-            RegExpTree.Positions = new Dictionary<String, List<RegExpTreeItem>>();
+            tree.Positions = new Dictionary<String, List<RegExpTreeItem>>();
             Machines = new Dictionary<string, Machine>();
-            foreach (String name in RegExpTree.Roots.Keys)
+            int currentState = 0;
+            foreach (String name in tree.Roots.Keys)
             {
                 if (!allowed.Contains(name)) continue;
-                RegExpTree.Positions.Add(name, new List<RegExpTreeItem>());
-                RegExpTree.Roots[name].Calculate(RegExpTree.Positions[name]);
-                RegExpTree.Roots[name].CalculateFollow(RegExpTree.Positions[name]);
-                Machine machine = new Machine(RegExpTree.Positions[name]);
-                machine.TryAdd(RegExpTree.Positions[name][RegExpTree.Positions[name].Count - 1].FirstPos);
+                tree.Positions.Add(name, new List<RegExpTreeItem>());
+                tree.Roots[name].Calculate(tree.Positions[name]);
+                tree.Roots[name].CalculateFollow(tree.Positions[name]);
+                Machine machine = new Machine(tree.Positions[name]);
+                machine.STATE = currentState;
+                machine.TryAdd(tree.Positions[name][tree.Positions[name].Count - 1].FirstPos);
                 while (machine.HasUnmarked())
                     machine.GetUnmarked().MoveForward();
                 Machines.Add(name, machine);
-            }
-        }
-
-        public Machine _Machines
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        public RegExpTree RegExpTree
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
+                currentState = machine.STATE;
             }
         }
     }

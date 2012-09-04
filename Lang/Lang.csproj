@@ -157,6 +157,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FileHandler.cs" />
     <Compile Include="FileManager.aspx.cs">
       <DependentUpon>FileManager.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -200,6 +201,7 @@
     <Compile Include="Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />
@@ -208,6 +210,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{1D17152F-FAFE-43C5-9854-76F528984119}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{33FDCFA1-BD32-4FFC-B74F-024E92CE959A}</Project>
+      <Name>Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

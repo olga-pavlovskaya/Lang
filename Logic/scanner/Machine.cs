@@ -9,27 +9,7 @@ namespace Logic
     {
         public List<RegExpTreeItem> AllPositions { get; set; }
 
-        public RegExpTree RegExpTree
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        public State State
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
+        public int STATE = 0;
 
         HashSet<State> States = new HashSet<State>();
         public State First;
@@ -75,7 +55,7 @@ namespace Logic
             return States.FirstOrDefault(s => !s.Marked);
         }
 
-        public String ToTable()
+        public String ToTable(string name)
         {
             var ret = new Dictionary<string, Dictionary<char, string>>();
             List<char> chars = new List<char>();
@@ -96,7 +76,7 @@ namespace Logic
             r.Append("<table>");
 
             r.Append("<tr>");
-            r.Append("<td>|</td>");
+            r.Append("<td>" + name + "</td>");
             foreach (var ch in chars) r.Append("<td>" + ch + "</td>");
             r.Append("</tr>");
             foreach (var state in ret.Keys)

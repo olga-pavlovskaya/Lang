@@ -5,15 +5,17 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
+using Lang;
+
 namespace Logic
 {
-    public class CodeGenerator
+    public class CodeGenerator : Lang.IGen
     {
         private delegate TReturn OneParameter<TReturn, TParam>(TParam p0);
         private static Dictionary<string, LocalBuilder> SymbolTable;
         private static String ilpath = @"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\ildasm.exe";
 
-        private static OneParameter<double, double> Generate()
+        public Func<double, double> GetFunctionCount(ExpressionTreeItem Root, out string ilcode)
         {
             SymbolTable = new Dictionary<string, LocalBuilder>();
             DynamicMethod count = new DynamicMethod(
@@ -27,15 +29,16 @@ namespace Logic
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Stloc, SymbolTable["x"]);
 
-            EmitNode(il, ExpressionTree.Root);
+            EmitNode(il, Root);
 
-            var ret = count.CreateDelegate(typeof(OneParameter<double, double>))
-                as OneParameter<double, double>;
+            var ret = count.CreateDelegate(typeof(Func<double, double>))
+                as Func<double, double>;
 
+            ilcode = TryGetIlCode(Root);
             return ret;
         }
 
-        public static void TryGetIlCode()
+        public static string TryGetIlCode(ExpressionTreeItem Root)
         {
             SymbolTable = new Dictionary<string, LocalBuilder>();
 
@@ -51,7 +54,7 @@ namespace Logic
             SymbolTable.Add("x", il.DeclareLocal(typeof(double)));
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Stloc, SymbolTable["x"]);
-            EmitNode(il, ExpressionTree.Root);
+            EmitNode(il, Root);
             tb.CreateType();
             ab.Save("res.dll");
 
@@ -59,7 +62,10 @@ namespace Logic
             ilproc.StartInfo.FileName = ilpath;
             ilproc.StartInfo.Arguments = @" /OUT=D:\1.txt /TEXT D:\study\kurs\kursach\kursach\bin\Debug\mod.dll";
             ilproc.Start();
-
+            var f = System.IO.File.OpenText(@"D:\1.txt");
+            string ilcode = f.ReadToEnd();
+            f.Close();
+            return ilcode;
         }
 
         public static void EmitNode(ILGenerator il, ExpressionTreeItem node)
@@ -230,32 +236,6 @@ namespace Logic
             }
             else if (node.Rul.Action.Equals("RT"))
                 il.Emit(OpCodes.Ret);
-        }
-
-        public static double Count(double x1, double x2, double interval)
-        {
-            if ((interval == 0) || (x1 > x2)) return 0;
-
-            var func = Generate();
-            double sum = 0;
-            for (double x = x1; x < x2; x += interval)
-            {
-                func(x);
-                sum += interval;
-            }
-            return sum;
-        }
-        public static List<double> GetResult(double x1, double x2, double interval)
-        {
-            List<double> sum = new List<double>();
-            if ((interval == 0) || (x1 > x2)) return sum;
-            var func = Generate();
-            for (double x = x1; x <= x2; x += interval)
-            {
-                func(x);
-                //sum.Add(func(x));
-            }
-            return sum;
         }
     }
 }

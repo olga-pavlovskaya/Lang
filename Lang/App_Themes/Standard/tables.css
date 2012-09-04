@@ -38,5 +38,5 @@
 
 .lang-table thead {font-weight:bold;}
 
-#machine-table td {background: rgb(235,244,250); width:50px; }
-#machine-table td.header {background: rgb(194,224,239); }
+#machine-table td, #grammar-table td {background: rgb(235,244,250); width:50px; }
+#machine-table td.header, #grammar-table td.header {background: rgb(194,224,239); text-align:center; }

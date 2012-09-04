@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+using Lang;
+
 namespace Logic
 {
     public class MagazineMachine
@@ -26,26 +28,24 @@ namespace Logic
             h.CountAllQs(g);
             r.Close();
         }
-        public void AnalyzeString(Grammar g, ExpressionTree e, String s)
+        public void AnalyzeString(Grammar g, ComplexMachine m, ExpressionTree e, String s, Helper h)
         {
             List<Int32> rules = new List<int>();
             List<Token> usedTokens = new List<Token>();
-            Console.WriteLine("Analyzing [" + s + "]");
+            System.Diagnostics.Debug.WriteLine("Analyzing [" + s + "]");
             Stack<Token> st = new Stack<Token>();
             st.Push(new Token() { Type = TokenType.Q, Value = "0" });
 
-            ComplexMachine m = new ComplexMachine();
             m.Reset(s);
             Token linetok = null;
             if (m.HasNext()) linetok = m.GetNextToken();
             while (linetok.Type == TokenType.DELIMITER) linetok = m.GetNextToken();
 
-            Helper h = new Helper();
             while (st.Count > 0)
             {
                 //Q
                 Token stacktok = st.Peek();
-                if (stacktok.Type != TokenType.Q) { Console.WriteLine("Unexpected token in stack"); return; }
+                if (stacktok.Type != TokenType.Q) { System.Diagnostics.Debug.WriteLine("Unexpected token in stack"); return; }
 
                 int q = Int32.Parse(stacktok.Value);
 
@@ -54,7 +54,7 @@ namespace Logic
 
                 if (!h.TableF.ContainsKey(x))
                 {
-                    Console.WriteLine("Unknown token " + x);
+                    System.Diagnostics.Debug.WriteLine("Unknown token " + x);
                     return;
                 }
 
@@ -76,12 +76,12 @@ namespace Logic
                         Token right = st.Pop();
                         if (!right.Value.Equals(rule.Right[r]) &&
                             !right.Type.ToString().Equals(rule.Right[r]))
-                            Console.WriteLine("Error while reducing according to rule " + rulenum +
+                            System.Diagnostics.Debug.WriteLine("Error while reducing according to rule " + rulenum +
                                 ": expected " + rule.Right[r] + ", got " + right);
                     }
                     st.Push(new Token() { Type = TokenType.NONTERM, Value = rule.Left });
                     //Console.WriteLine("Reduced according to rule " + rulenum);
-                    Console.WriteLine("--------- " + rule.Action);
+                    System.Diagnostics.Debug.WriteLine("--------- " + rule.Action);
                     rules.Add(rulenum);
                 }
                 else if (command.StartsWith("accept"))
@@ -92,11 +92,11 @@ namespace Logic
                     if ((st.Count == 0) && start.Value.Equals(g.Start.Right[0])
                         && q0.Value.Equals("0") && (q0.Type == TokenType.Q))
                     {
-                        Console.WriteLine("ACCEPTED");
+                        System.Diagnostics.Debug.WriteLine("ACCEPTED");
                         e.BuildByRules(g,rules, usedTokens);
                     }
                     else
-                        Console.WriteLine("Unexpected end of file");
+                        System.Diagnostics.Debug.WriteLine("Unexpected end of file");
                     return;
                 }
                 else
@@ -126,14 +126,14 @@ namespace Logic
 
                 if (!h.TableG.ContainsKey(x))
                 {
-                    Console.WriteLine("Unknown token " + x);
+                    System.Diagnostics.Debug.WriteLine("Unknown token " + x);
                     return;
                 }
 
                 if (stacktok.Type != TokenType.NONTERM)
                 {
                     usedTokens.Add(stacktok);
-                    Console.WriteLine("---PUSH " + stacktok.Value);
+                    System.Diagnostics.Debug.WriteLine("---PUSH " + stacktok.Value);
                 }
 
                 int gt = h.TableG[x][q];

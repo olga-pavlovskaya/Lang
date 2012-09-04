@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Lang;
+
 namespace Logic
 {
     public class Helper
@@ -194,6 +196,40 @@ namespace Logic
                     }
                 }
             }
+        }
+
+        public List<List<string>> ToTable()
+        {
+            var ret = new List<List<string>>();
+
+            List<string> r = new List<string>();
+            r.Add("<td></td>");
+            r.Add("<td colspan='" + TableF.Keys.Count + "'>F</td>");
+            r.Add("<td colspan='" +  TableG.Keys.Count + "'>G</td>");
+            ret.Add(new List<string>(r));
+
+            r.Clear();
+            r.Add("");
+            foreach (var key in TableF.Keys)
+                r.Add(key);
+            foreach (var key in TableG.Keys)
+                r.Add(key);
+            ret.Add(new List<string>(r));
+
+            var rowsCount = Math.Max(TableF.Values.Max(d => d.Count), TableG.Values.Max(d => d.Count));
+            for (int i = 0; i < rowsCount; i++)
+            {
+                r.Clear();
+                r.Add("q" + i);
+                foreach (var key in TableF.Keys)
+                    r.Add((TableF[key].Count > i ? TableF[key][i] : ""));
+                foreach (var key in TableG.Keys)
+                    r.Add((TableG[key].Count > i && TableG[key][i] > -1 ? 
+                        "q" + TableG[key][i] : ""));
+                ret.Add(new List<string>(r));
+            }
+            
+            return ret;
         }
     }
     public static class SitSetComp

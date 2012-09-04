@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Lang;
+
 namespace Logic
 {
     public class ExpressionTree
     {
-        public static ExpressionTreeItem Root = new ExpressionTreeItem("Root");
-        public static List<Token> Tokens;
+        public ExpressionTreeItem Root = new ExpressionTreeItem("Root");
+        public List<Token> Tokens;
 
         public void BuildByRules(Grammar g, List<int> rules, List<Token> tokens)
         {
@@ -21,7 +23,7 @@ namespace Logic
                 int idx = Leafs.Count - 1;
                 while (!Leafs[idx].Value.Equals(rule.Left) && idx > 0)
                     idx--;
-                if (idx < 0) { Console.WriteLine("Error while tree building"); return; }
+                if (idx < 0) { System.Diagnostics.Debug.WriteLine("Error while tree building"); return; }
 
                 var leaf = Leafs[idx];
                 Leafs.RemoveAt(idx);
@@ -79,17 +81,6 @@ namespace Logic
                 var child = node.Children[i];
                 LeaveOnlyNessesary(node, i, ref child);
             }
-        }
-    }
-    public class ExpressionTreeItem
-    {
-        public String Value;
-        public List<ExpressionTreeItem> Children;
-        public Rule Rul;
-        public ExpressionTreeItem(String s)
-        {
-            Value = s;
-            Children = new List<ExpressionTreeItem>();
         }
     }
 }
