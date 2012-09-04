@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gener\CodeGenerator.cs" />
+    <Compile Include="gener\IGen.cs" />
     <Compile Include="parser\ExpressionTree.cs" />
     <Compile Include="parser\Grammar.cs" />
     <Compile Include="parser\Helper.cs" />
